@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import Loader from './components/Loader.jsx';
 import Nav from './components/Nav.jsx';
 import Hero from './components/Hero.jsx';
-import { About, Projects, Contact } from './components/Sections.jsx';
+import { About, Background, Projects, Contact } from './components/Sections.jsx';
 
 export default function App() {
   const [sceneReady, setSceneReady] = useState(false);
@@ -17,6 +17,7 @@ export default function App() {
       <main>
         <Hero onReady={onReady} />
         <About />
+        <Background />
         <Projects />
         <Contact />
       </main>

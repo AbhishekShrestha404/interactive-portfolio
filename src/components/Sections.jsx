@@ -1,17 +1,14 @@
 import { useState } from 'react';
 
 const EMAIL = 'your@email.com'; // replace with your real address
-const SOCIALS = [
-  ['LinkedIn', 'https://www.linkedin.com/in/your-handle'], // replace
-  ['GitHub', 'https://github.com/your-handle'], // replace
+const SOCIALS = [ // replace the URLs, delete any you don't use
+  ['LinkedIn', 'https://www.linkedin.com/in/your-handle'],
+  ['GitHub', 'https://github.com/your-handle'],
+  ['Behance', 'https://www.behance.net/your-handle'],
+  ['Instagram', 'https://www.instagram.com/your-handle'],
 ];
 
 /* ---------- About ---------- */
-const EXPERIENCE = [
-  ['Operation and Technical Support', 'Slash Plus', 'Aug to Oct 2026'],
-  ['Flutter Developer Intern', 'Infocom Solutions', 'Dec 2025 to Apr 2026'],
-  ['UI/UX Designer Intern', 'Vyomite', 'Jun to Dec 2025'],
-];
 const EDUCATION = [['BSc CSIT', 'Orchid International College', '2022 to 2026']];
 const STACK = ['Figma', 'Flutter', 'Dart', 'React', 'JavaScript', 'Node.js', 'Express', 'MongoDB', 'Python', 'FastAPI', 'XGBoost', 'Docker'];
 
@@ -26,16 +23,6 @@ function Portrait() {
   );
 }
 
-function Timeline({ items }) {
-  return (
-    <ul className="timeline">
-      {items.map(([role, place, when]) => (
-        <li key={role}><strong>{role}</strong><span>{place}, {when}</span></li>
-      ))}
-    </ul>
-  );
-}
-
 export function About() {
   return (
     <section className="about" id="about">
@@ -45,13 +32,13 @@ export function About() {
         <div className="about-text">
           <h3>Hi, I'm Abhishek</h3>
           <p>I'm a BSc CSIT graduate from Kathmandu who moves comfortably between Figma and code. I've worked as a UI/UX designer and a Flutter developer, and I like building products where design and engineering meet.</p>
-          <div className="block" id="experience">
-            <h3>Experience</h3>
-            <Timeline items={EXPERIENCE} />
-          </div>
           <div className="block">
             <h3>Education</h3>
-            <Timeline items={EDUCATION} />
+            <ul className="timeline">
+              {EDUCATION.map(([name, place, when]) => (
+                <li key={name}><strong>{name}</strong><span>{place}, {when}</span></li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
@@ -59,6 +46,36 @@ export function About() {
         <h3>Tech stack</h3>
         <ul className="chips">{STACK.map((t) => <li key={t}>{t}</li>)}</ul>
       </div>
+    </section>
+  );
+}
+
+/* ---------- Professional background ---------- */
+const JOBS = [
+  { role: 'Operation and Technical Support', company: 'Slash Plus', when: 'Aug to Oct 2026',
+    text: 'Add what you handled and the impact it had.' },
+  { role: 'Flutter Developer Intern', company: 'Infocom Solutions', when: 'Dec 2025 to Apr 2026',
+    text: 'Add what you built and the impact it had.' },
+  { role: 'UI/UX Designer Intern', company: 'Vyomite', when: 'Jun to Dec 2025',
+    text: 'Add what you designed and the impact it had.' },
+];
+
+export function Background() {
+  return (
+    <section className="background" id="experience">
+      <h2>Professional background</h2>
+      <ol className="jobs">
+        {JOBS.map((j) => (
+          <li key={j.role}>
+            <p className="when">{j.when}</p>
+            <div>
+              <h3>{j.role}</h3>
+              <p className="company">{j.company}</p>
+              <p>{j.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }
@@ -71,9 +88,9 @@ const PROJECTS = [
   { slug: 'churn-api', kind: 'Backend and ML', title: 'Customer Churn Prediction API',
     text: 'A FastAPI service that predicts which customers are likely to leave, using an XGBoost model packaged with Docker.',
     tech: ['FastAPI', 'XGBoost', 'Docker'], links: [['GitHub', '#']] },
-  { slug: 'segmentation', kind: 'Data analysis', title: 'Customer Segmentation',
-    text: 'Groups customers into segments using K-Means clustering.',
-    tech: ['Python', 'K-Means'], links: [['GitHub', '#']] },
+  { slug: 'website-case-study', kind: 'Web design', title: 'Company Website Design', // add the company name
+    text: 'A case study of a website I designed for a company: the problem, my design process and the final result.',
+    tech: ['Figma', 'UI/UX'], links: [['Read case study', '#']] },
 ];
 
 function Shot({ slug, title, n }) {
@@ -115,32 +132,16 @@ export function Projects() {
 
 /* ---------- Contact ---------- */
 export function Contact() {
-  function send(e) {
-    e.preventDefault();
-    const f = new FormData(e.target);
-    const body = `${f.get('message')}\n\n${f.get('name')} (${f.get('email')})`;
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Portfolio enquiry')}&body=${encodeURIComponent(body)}`;
-  }
   return (
     <section className="contact" id="contact">
-      <div className="contact-grid">
-        <div>
-          <h2>Let's talk.</h2>
-          <p>Hiring for a junior developer role? I'd love to hear from you. Freelance projects are welcome too.</p>
-          <a className="email" href={`mailto:${EMAIL}`}>{EMAIL}</a>
-          <p className="social">
-            {SOCIALS.map(([label, href]) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer">{label} ↗</a>
-            ))}
-          </p>
-        </div>
-        <form onSubmit={send}>
-          <label>Name<input name="name" required /></label>
-          <label>Email<input name="email" type="email" required /></label>
-          <label className="wide">Message<textarea name="message" rows="3" required /></label>
-          <button className="btn solid wide" type="submit">Send message</button>
-        </form>
-      </div>
+      <h2>Get in touch</h2>
+      <p className="sub">Good things start with a hello.</p>
+      <a className="email" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+      <p className="social">
+        {SOCIALS.map(([label, href]) => (
+          <a key={label} href={href} target="_blank" rel="noopener noreferrer">{label} ↗</a>
+        ))}
+      </p>
       <footer>© 2026 Abhishek Shrestha</footer>
     </section>
   );
