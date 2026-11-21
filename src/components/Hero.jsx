@@ -1,5 +1,4 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { EMAIL } from '../config.js';
 
 const Particles = lazy(() => import('./Particles.jsx'));
 
@@ -26,16 +25,10 @@ export default function Hero({ onReady }) {
       </div>
       <div className="hero-copy">
         <h1 className="hero-title">Designer<br />who ships<br />code.</h1>
-        {/* {
-          Where pixels meet logic.
-        Designer who ships code.
-        From pixels to production.
-        Design-led, code-driven.
-        } */}
         <p className="hero-sub">Junior developer with a design brain. Open to full-time roles and freelance projects.</p>
         <div className="hero-actions">
           <a className="btn solid" href="#work">See my work</a>
-          <a className="btn line" href={`mailto:${EMAIL}`}>Let's talk</a>
+          <a className="btn line" href="#contact">Let's talk</a>
         </div>
       </div>
     </section>

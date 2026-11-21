@@ -1,7 +1,12 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
-import { EMAIL, SOCIALS } from '../config.js';
+import { useState } from 'react';
 
-const Constellation = lazy(() => import('./Constellation.jsx'));
+const EMAIL = 'your@email.com'; // replace with your real address
+const SOCIALS = [ // replace the URLs, delete any you don't use
+  ['LinkedIn', 'https://www.linkedin.com/in/your-handle'],
+  ['GitHub', 'https://github.com/your-handle'],
+  ['Behance', 'https://www.behance.net/your-handle'],
+  ['Instagram', 'https://www.instagram.com/your-handle'],
+];
 
 /* ---------- About ---------- */
 const EDUCATION = [['BSc CSIT', 'Orchid International College', '2022 to 2026']];
@@ -21,7 +26,7 @@ function Portrait() {
 export function About() {
   return (
     <section className="about" id="about">
-      <h2>About Me</h2>
+      <h2>A developer who cares about how things work and feel.</h2>
       <div className="about-grid">
         <Portrait />
         <div className="about-text">
@@ -45,54 +50,47 @@ export function About() {
   );
 }
 
-/* ---------- Professional background (click a company to see details) ---------- */
-const TODO = ['Add what you built and the impact it had.', 'Add a second achievement or responsibility.', 'Add the tools and technologies you used.'];
+/* ---------- Professional background ---------- */
 const JOBS = [
-  { role: 'Operation and Technical Support', company: 'Slash Plus', when: 'August to October 2026', points: TODO },
-  { role: 'Flutter Developer Intern', company: 'Infocom Solutions', when: 'December 2025 to April 2026', points: TODO },
-  { role: 'UI/UX Designer Intern', company: 'Vyomite', when: 'June to December 2025', points: TODO },
+  { role: 'Operation and Technical Support', company: 'Slash Plus', when: 'Aug to Oct 2026',
+    text: 'Add what you handled and the impact it had.' },
+  { role: 'Flutter Developer Intern', company: 'Infocom Solutions', when: 'Dec 2025 to Apr 2026',
+    text: 'Add what you built and the impact it had.' },
+  { role: 'UI/UX Designer Intern', company: 'Vyomite', when: 'Jun to Dec 2025',
+    text: 'Add what you designed and the impact it had.' },
 ];
 
 export function Background() {
-  const [i, setI] = useState(0);
-  const job = JOBS[i];
   return (
     <section className="background" id="experience">
       <h2>Professional background</h2>
-      <div className="jobs">
-        <div className="tabs" role="tablist" aria-label="Companies">
-          {JOBS.map((j, n) => (
-            <button key={j.company} role="tab" id={`tab-${n}`} aria-selected={n === i} aria-controls="job-panel"
-              className={n === i ? 'on' : ''} onClick={() => setI(n)}>{j.company}</button>
-          ))}
-        </div>
-        <div className="panel" role="tabpanel" id="job-panel" aria-labelledby={`tab-${i}`}>
-          <h3>{job.role} <span>@ {job.company}</span></h3>
-          <p className="when">{job.when}</p>
-          <ul>{job.points.map((p) => <li key={p}>{p}</li>)}</ul>
-        </div>
-      </div>
+      <ol className="jobs">
+        {JOBS.map((j) => (
+          <li key={j.role}>
+            <p className="when">{j.when}</p>
+            <div>
+              <h3>{j.role}</h3>
+              <p className="company">{j.company}</p>
+              <p>{j.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }
 
 /* ---------- Projects (Z-pattern: image and text alternate sides) ---------- */
 const PROJECTS = [
-  {
-    slug: 'job-tracker', kind: 'Full-stack', title: 'Job Application Tracker',
+  { slug: 'job-tracker', kind: 'Full-stack', title: 'Job Application Tracker',
     text: 'A Kanban board for tracking job applications by status, with deadlines and notes, so nothing in a job search slips through.',
-    tech: ['React', 'Express', 'MongoDB'], links: [['Live demo', '#'], ['GitHub', '#']]
-  },
-  {
-    slug: 'churn-api', kind: 'Backend and ML', title: 'Customer Churn Prediction API',
+    tech: ['React', 'Express', 'MongoDB'], links: [['Live demo', '#'], ['GitHub', '#']] },
+  { slug: 'churn-api', kind: 'Backend and ML', title: 'Customer Churn Prediction API',
     text: 'A FastAPI service that predicts which customers are likely to leave, using an XGBoost model packaged with Docker.',
-    tech: ['FastAPI', 'XGBoost', 'Docker'], links: [['GitHub', '#']]
-  },
-  {
-    slug: 'website-case-study', kind: 'Web design', title: 'Company Website Design', // add the company name
+    tech: ['FastAPI', 'XGBoost', 'Docker'], links: [['GitHub', '#']] },
+  { slug: 'website-case-study', kind: 'Web design', title: 'Company Website Design', // add the company name
     text: 'A case study of a website I designed for a company: the problem, my design process and the final result.',
-    tech: ['Figma', 'UI/UX'], links: [['Read case study', '#']]
-  },
+    tech: ['Figma', 'UI/UX'], links: [['Read case study', '#']] },
 ];
 
 function Shot({ slug, title, n }) {
@@ -132,21 +130,10 @@ export function Projects() {
   );
 }
 
-/* ---------- Contact (constellation background loads when you scroll near) ---------- */
+/* ---------- Contact ---------- */
 export function Contact() {
-  const ref = useRef(null);
-  const [near, setNear] = useState(false);
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && setNear(true), { rootMargin: '400px' });
-    io.observe(ref.current);
-    return () => io.disconnect();
-  }, []);
-
   return (
-    <section className="contact" id="contact" ref={ref}>
-      {near && <Suspense fallback={null}><Constellation /></Suspense>}
+    <section className="contact" id="contact">
       <h2>Get in touch</h2>
       <p className="sub">Good things start with a hello.</p>
       <a className="email" href={`mailto:${EMAIL}`}>{EMAIL}</a>
@@ -155,7 +142,7 @@ export function Contact() {
           <a key={label} href={href} target="_blank" rel="noopener noreferrer">{label} ↗</a>
         ))}
       </p>
-      <footer>© 2027 Abhishek Shrestha</footer>
+      <footer>© 2026 Abhishek Shrestha</footer>
     </section>
   );
 }
