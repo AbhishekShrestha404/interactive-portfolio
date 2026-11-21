@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import Logo from './Logo.jsx';
 
-// The bar eases toward 90% while the hero scene loads, then completes
-// the moment the scene reports it is ready.
+// The bar and the logo fill together: they ease toward 90% while the hero scene
+// loads, then complete the moment the scene reports it is ready.
 export default function Loader({ ready, onDone }) {
   const [pct, setPct] = useState(0);
   const [leaving, setLeaving] = useState(false);
@@ -21,8 +22,11 @@ export default function Loader({ ready, onDone }) {
   }, [ready, onDone]);
 
   return (
-    <div className={'loader' + (leaving ? ' leaving' : '')} role="status" aria-live="polite">
-      <p className="loader-name">Abhishek Shrestha</p>
+    <div className={'loader' + (leaving ? ' leaving' : '')} role="status" aria-label="Loading">
+      <div className="loader-logo">
+        <Logo />
+        <Logo className="lit" style={{ clipPath: `inset(0 ${100 - pct}% 0 0)` }} />
+      </div>
       <div className="loader-track"><div className="loader-fill" style={{ width: pct + '%' }} /></div>
       <p className="loader-pct">{Math.round(pct)}%</p>
     </div>
