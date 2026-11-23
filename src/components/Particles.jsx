@@ -34,7 +34,7 @@ void main(){
   gl_FragColor = vec4(col, a * (0.55 + 0.45 * vShade));
 }`;
 
-const N = 4000;
+const N = 55000;
 const sphere = () => {
   const a = new Float32Array(N * 3), g = Math.PI * (3 - Math.sqrt(5));
   for (let i = 0; i < N; i++) {

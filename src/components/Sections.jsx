@@ -4,9 +4,9 @@ import { EMAIL, SOCIALS } from '../config.js';
 const Constellation = lazy(() => import('./Constellation.jsx'));
 
 /* ---------- About ---------- */
-const EDUCATION = [['BSc. Computer Science and Information Technology (BSc. CSIT) ', 'Orchid International College', '2022 - 2026'],
+const EDUCATION = [['BSc. Computer Science and Information Technology (BSc. CSIT)', 'Orchid International College', '2022 - 2026'],
 ['High Secondary School', 'Kanjirowa National Secondary School', '2019 - 2021']];
-const STACK = ['Figma', 'Flutter', 'Dart', 'React', 'JavaScript', 'Node.js', 'Express', 'MongoDB', 'Python', 'FastAPI', 'XGBoost', 'Docker'];
+const STACK = ['React', 'JavaScript', 'Material UI', 'Node.js', 'Express', 'MongoDB', 'Flutter', 'Dart', 'Figma', 'Docker'];
 
 function Portrait() {
   const [missing, setMissing] = useState(false);
@@ -14,7 +14,7 @@ function Portrait() {
     <figure className="portrait">
       {missing
         ? <span aria-hidden="true">AS</span>
-        : <img src="../public/profilePic.jpg" alt="Portrait of Abhishek Shrestha" onError={() => setMissing(true)} />}
+        : <img src="/profilePic.jpg" alt="Portrait of Abhishek Patrabansha" onError={() => setMissing(true)} />}
     </figure>
   );
 }
@@ -70,7 +70,8 @@ const JOBS = [
       'Supported fleet management operations through GPS tracking, device configuration, and system monitoring.',
       'Troubleshot connectivity issues, maintained operational records, and coordinated with clients and field teams.',
       'Technologies: GPS Tracking Systems, Fleet Management, System Monitoring, Technical Troubleshooting.'
-    ]
+    ],
+
   },
   {
     role: 'Flutter Developer Intern',
@@ -80,7 +81,7 @@ const JOBS = [
       'Built responsive Android and iOS app interfaces using Flutter, focusing on clean layouts and usability.',
       'Integrated REST APIs, resolved UI issues, and tested mobile features to improve app stability.',
       'Technologies: Flutter, Dart, REST APIs, Mobile UI Development.'
-    ]
+    ],
   },
   {
     role: 'UI/UX Designer Intern',
@@ -89,7 +90,7 @@ const JOBS = [
     points: [
       'Researched user needs and business goals to redesign website pages with improved structure and usability.',
       'Created wireframes, high-fidelity designs, interactive prototypes, and reusable design system components.',
-      'Figma, Wireframing, Prototyping, User Flows, Design Systems.'
+      'Technologies: Figma, Wireframing, Prototyping, User Flows, Design Systems.'
     ]
   }
 ];
@@ -121,19 +122,19 @@ export function Background() {
 /* ---------- Projects (Z-pattern: image and text alternate sides) ---------- */
 const PROJECTS = [
   {
+    slug: 'inventory-mng-system', kind: 'Full-stack Web App', title: 'Inventory Management System',
+    text: 'A planned full-stack web application for small businesses to manage products, track stock levels, and monitor inventory movements.',
+    tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Vite'], links: [['GitHub', 'https://github.com/AbhishekShrestha404/inventory-management-system']]
+  },
+  {
     slug: 'job-tracker', kind: 'Full-stack', title: 'Job Application Tracker',
     text: 'A Kanban board for tracking job applications by status, with deadlines and notes, so nothing in a job search slips through.',
-    tech: ['React', 'Express', 'MongoDB'], links: [['Live demo', '#'], ['GitHub', '#']]
+    tech: ['React', 'Express', 'MongoDB'], links: [['Live demo', 'https://track-my-job-2026.vercel.app'], ['GitHub', 'https://github.com/AbhishekShrestha404/job-tracker']]
   },
   {
-    slug: 'churn-api', kind: 'Backend and ML', title: 'Customer Churn Prediction API',
-    text: 'A FastAPI service that predicts which customers are likely to leave, using an XGBoost model packaged with Docker.',
-    tech: ['FastAPI', 'XGBoost', 'Docker'], links: [['GitHub', '#']]
-  },
-  {
-    slug: 'website-case-study', kind: 'Web design', title: 'Company Website Design', // add the company name
-    text: 'A case study of a website I designed for a company: the problem, my design process and the final result.',
-    tech: ['Figma', 'UI/UX'], links: [['Read case study', '#']]
+    slug: 'vyomiteMobandLap', kind: 'Web Redesign', title: 'Vyomite Website Redesign',
+    text: 'A look at the research, structure, and visual system behind my redesign of Vyomite’s website.',
+    tech: ['Figma', 'UI/UX'], links: [['Read case study', '/case-study/vyomite']]
   },
 ];
 
@@ -163,7 +164,14 @@ export function Projects() {
               <ul className="chips">{p.tech.map((t) => <li key={t}>{t}</li>)}</ul>
               <p className="links">
                 {p.links.map(([label, href]) => (
-                  <a key={label} href={href} target="_blank" rel="noopener noreferrer">{label} ↗</a>
+                  <a
+                    key={label}
+                    href={href}
+                    target={href.startsWith('/') ? undefined : '_blank'}
+                    rel={href.startsWith('/') ? undefined : 'noopener noreferrer'}
+                  >
+                    {label} ↗
+                  </a>
                 ))}
               </p>
             </div>
@@ -197,7 +205,9 @@ export function Contact() {
           <a key={label} href={href} target="_blank" rel="noopener noreferrer">{label} ↗</a>
         ))}
       </p>
-      <footer>© 2026 Abhishek Patrabansha Shrestha</footer>
+      <footer>© 2026 Abhishek Patrabansha Shrestha <br />
+        All Rights Reserved.
+      </footer>
     </section>
   );
 }

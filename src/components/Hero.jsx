@@ -25,12 +25,15 @@ export default function Hero({ onReady }) {
       </div>
       <div className="hero-copy">
         <h1 className="hero-title">Designer<br />who ships<br />code.</h1>
-        <p className="hero-sub">Junior developer with a design brain. Open to full-time roles and freelance projects.</p>
+        <p className="hero-sub">I design intuitive interfaces and build them into functional products.</p>
         <div className="hero-actions">
           <a className="btn solid" href="#work">See my work</a>
           <a className="btn line" href="#contact">Let's talk</a>
         </div>
       </div>
+      <a className="hero-next" href="#about" aria-label="Scroll to About Me">
+        <span>Scroll to explore</span><span className="hero-next-line" aria-hidden="true" />
+      </a>
     </section>
   );
 }

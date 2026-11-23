@@ -9,9 +9,13 @@
   --muted: #a8a8b6;
   --line: #3a3a46;
   --accent: #ff7a1a;
+  --site-grid-size: 76px 76px;
+  --site-grid-dark: linear-gradient(#ffffff08 1px, transparent 1px), linear-gradient(90deg, #ffffff08 1px, transparent 1px);
+  --site-grid-light: linear-gradient(#182e3c0a 1px, transparent 1px), linear-gradient(90deg, #182e3c0a 1px, transparent 1px);
   --display: 'Bricolage Grotesque', system-ui, sans-serif;
   --body: 'Instrument Sans', system-ui, sans-serif;
   --pad: clamp(1.25rem, 5vw, 4rem);
+  --section-space: clamp(3.5rem, 7vw, 6rem);
 }
 
 * {
@@ -53,7 +57,7 @@ a {
 }
 
 section {
-  padding: clamp(3.5rem, 9vw, 7rem) var(--pad);
+  padding: var(--section-space) var(--pad);
 }
 
 h2 {
@@ -188,11 +192,58 @@ h2 {
 .hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100svh;
   display: grid;
   align-items: center;
   overflow: hidden;
-  background: radial-gradient(circle at 70% 50%, #2a2a36, var(--bg) 65%);
+  background-color: var(--bg);
+  background-image: var(--site-grid-dark), radial-gradient(circle at 70% 50%, #2a2a36, var(--bg) 65%);
+  background-size: var(--site-grid-size), var(--site-grid-size), cover;
   padding-top: 5rem;
+}
+
+/* A small scroll cue hints at the section below the full-screen hero. */
+.hero-next {
+  position: absolute;
+  z-index: 2;
+  right: var(--pad);
+  bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--soft);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.hero-next-line {
+  display: block;
+  width: clamp(2.5rem, 7vw, 5rem);
+  height: 1px;
+  background: var(--accent);
+  transform-origin: left;
+  transition: transform 200ms ease;
+}
+
+.hero-next:hover .hero-next-line,
+.hero-next:focus-visible .hero-next-line {
+  transform: scaleX(1.25);
+}
+
+.cursor-dot {
+  position: fixed;
+  top: -5px;
+  left: -5px;
+  z-index: 60;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px #ff7a1a88;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 160ms ease;
 }
 
 .hero-scene {
@@ -452,7 +503,7 @@ h2 {
 
 .rows {
   display: grid;
-  gap: clamp(3rem, 7vw, 6rem);
+  gap: clamp(2.75rem, 6vw, 5rem);
 }
 
 .row {
@@ -521,7 +572,6 @@ h2 {
 .contact {
   background: var(--bg);
   text-align: center;
-  padding-block: clamp(4rem, 10vw, 7rem);
 }
 
 .contact h2 {
@@ -536,8 +586,8 @@ h2 {
 
 .email {
   display: block;
-  margin: clamp(1.5rem, 4vw, 2.5rem) auto;
-  font: 800 clamp(1.5rem, 6.5vw, 5rem) var(--display);
+  margin: clamp(1.5rem, 3vw, 2.25rem) auto;
+  font: 800 clamp(1.35rem, 4.8vw, 4.25rem) var(--display);
   letter-spacing: -0.03em;
   text-decoration: none;
   overflow-wrap: anywhere;
@@ -570,7 +620,7 @@ h2 {
 }
 
 .contact footer {
-  margin-top: clamp(3rem, 8vw, 5rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
   color: var(--muted);
   font-size: 0.85rem;
 }
@@ -613,6 +663,14 @@ h2 {
 
 /* Mobile */
 @media (max-width: 800px) {
+  :root {
+    --section-space: clamp(3rem, 8vw, 4.5rem);
+  }
+
+  h2 {
+    margin-bottom: 1.5rem;
+  }
+
   .menu {
     display: inline-block;
   }
@@ -662,6 +720,7 @@ h2 {
     border-left: 0;
     border-bottom: 2px solid transparent;
     margin: 0 0 -2px;
+    padding: 0.75rem 1rem;
     white-space: nowrap;
   }
 
@@ -684,6 +743,10 @@ h2 {
   }
 }
 
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-dot { display: none; }
+}
+
 .hero-scene {
   -webkit-mask-image: linear-gradient(to right, transparent, #000 14%);
   mask-image: linear-gradient(to right, transparent, #000 14%);
@@ -703,4 +766,52 @@ h2 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
   gap: 0 2rem;
+}
+
+/* The same quiet grid continues through light and dark portfolio sections. */
+.about,
+.work {
+  background-image: var(--site-grid-light);
+  background-size: var(--site-grid-size);
+}
+
+.background,
+.contact {
+  background-image: var(--site-grid-dark);
+  background-size: var(--site-grid-size);
+}
+
+@media (max-width: 600px) {
+  .about-grid {
+    gap: 1.5rem;
+  }
+
+  .portrait {
+    width: min(100%, 15rem);
+  }
+
+  .stack {
+    margin-top: 2rem;
+  }
+
+  .rows {
+    gap: 2.5rem;
+  }
+
+  .row {
+    gap: 1.25rem;
+  }
+
+  .email {
+    line-height: 1.15;
+  }
+
+  .social {
+    gap: 0.6rem;
+  }
+
+  .hero-next {
+    left: var(--pad);
+    right: auto;
+  }
 }

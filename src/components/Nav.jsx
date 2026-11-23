@@ -31,14 +31,14 @@ export default function Nav() {
 
   return (
     <header className={'nav' + (hidden && !open ? ' hidden' : '')}>
-      <a className="logo" href="#top" aria-label="Abhishek Shrestha, home"><Logo /></a>
+      <a className="logo" href="#top" aria-label="abhishekPatrabansha, home"><Logo /></a>
       <div className="nav-right">
         <nav aria-label="Main" className={open ? 'open' : ''}>
           {LINKS.map(([label, href]) => (
             <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>
           ))}
         </nav>
-        <a className="resume" href="/resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a className="resume" href="/projects/abhishekPatrabansha.pdf" download="Abhishek-Patrabansha-Resume.pdf">Resume</a>
         <button className="menu" aria-expanded={open} onClick={() => setOpen(!open)}>Menu</button>
       </div>
     </header>
