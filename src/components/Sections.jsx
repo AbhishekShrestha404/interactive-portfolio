@@ -122,9 +122,9 @@ export function Background() {
 /* ---------- Projects (Z-pattern: image and text alternate sides) ---------- */
 const PROJECTS = [
   {
-    slug: 'inventory-mng-system', kind: 'Full-stack Web App', title: 'Inventory Management System',
+    slug: 'mavya', kind: 'Full-stack Web App', title: 'Inventory Management System',
     text: 'A planned full-stack web application for small businesses to manage products, track stock levels, and monitor inventory movements.',
-    tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Vite'], links: [['GitHub', 'https://github.com/AbhishekShrestha404/inventory-management-system']]
+    tech: ['React', 'Node.js', 'Express', 'Vite', 'Vercel', 'Render', 'Supabase'], links: [['Live demo', 'https://mavya-rose.vercel.app'], ['GitHub', 'https://github.com/AbhishekShrestha404/inventory-management-system']]
   },
   {
     slug: 'job-tracker', kind: 'Full-stack', title: 'Job Application Tracker',
@@ -141,7 +141,7 @@ const PROJECTS = [
 function Shot({ slug, title, n }) {
   const [missing, setMissing] = useState(false);
   return (
-    <div className="shot">
+    <div className={`shot${slug === 'mavya' ? ' shot--mavya' : ''}`}>
       {missing
         ? <span>Project screenshot {n}</span>
         : <img src={`/projects/${slug}.png`} alt={`${title} screenshot`} loading="lazy" onError={() => setMissing(true)} />}

@@ -535,6 +535,15 @@ h2 {
   display: block;
 }
 
+.shot--mavya {
+  aspect-ratio: 3072 / 1700;
+  background: #fff;
+}
+
+.shot--mavya img {
+  object-fit: contain;
+}
+
 .info h3 {
   font-size: clamp(1.7rem, 3.5vw, 2.6rem);
   margin: 0.4rem 0 0.9rem;
@@ -743,8 +752,11 @@ h2 {
   }
 }
 
-@media (pointer: coarse), (prefers-reduced-motion: reduce) {
-  .cursor-dot { display: none; }
+@media (pointer: coarse),
+(prefers-reduced-motion: reduce) {
+  .cursor-dot {
+    display: none;
+  }
 }
 
 .hero-scene {
